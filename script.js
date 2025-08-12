@@ -101,6 +101,34 @@ if (heroTitle) {
   });
 }
 
+// Ambient audio toggle
+const audioEl = document.getElementById('bg-audio');
+const audioBtn = document.getElementById('audio-toggle');
+if (audioEl && audioBtn) {
+  let userPref = localStorage.getItem('bg-audio');
+  const setState = (playing) => {
+    audioBtn.textContent = playing ? 'Pause Music' : 'Play Music';
+    audioBtn.setAttribute('aria-pressed', playing ? 'true' : 'false');
+  };
+  if (userPref === 'on') {
+    // Try autoplay muted then unmute after gesture
+    audioEl.volume = 0.55;
+    audioEl.play().then(() => setState(true)).catch(()=> setState(false));
+  }
+  audioBtn.addEventListener('click', () => {
+    if (audioEl.paused) {
+      audioEl.play().then(()=> {
+        localStorage.setItem('bg-audio','on');
+        setState(true);
+      });
+    } else {
+      audioEl.pause();
+      localStorage.setItem('bg-audio','off');
+      setState(false);
+    }
+  });
+}
+
 // Contact form (Formspree)
 const contactForm = document.getElementById("contact-form");
 const statusEl = document.getElementById("contact-status");

@@ -33,9 +33,14 @@
           <span>JavaScript</span><span>HTML</span><span>CSS</span><span>Web Apps</span><span>Games</span>
         </div>
         <div class="hero-actions">
-          <a href="#projects" class="hero-btn primary">View My Work</a>
+          <a href="#apps" class="hero-btn primary">View My Work</a>
           <a href="#contact" class="hero-btn">Get in Touch</a>
+          <button id="audio-toggle" class="hero-btn" type="button" aria-pressed="false" aria-label="Play ambient background audio">Play Music</button>
         </div>
+        <audio id="bg-audio" loop preload="none" crossorigin="anonymous">
+          <!-- Placeholder source: add your downloaded 'Aurora' or 'Signal to Noise' MP3 into an 'audio' folder -->
+          <source src="audio/aurora.mp3" type="audio/mpeg" />
+        </audio>
       </div>
       <div class="scroll-cue">Scroll to explore ↓</div>
     </section>
