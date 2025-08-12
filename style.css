@@ -58,7 +58,7 @@ body {
   content: "";
   display: block;
   height: 100%;
-  width: var(--bar);
+  width: 0;
   background: linear-gradient(90deg, #00bcd4 60%, #2196f3 100%);
   border-radius: 6px;
   position: absolute;
@@ -68,7 +68,7 @@ body {
   content: "";
   display: block;
   height: 100%;
-  width: var(--bar);
+  width: 0;
   background: linear-gradient(90deg, #43e97b 60%, #38f9d7 100%);
   border-radius: 6px;
   position: absolute;
@@ -78,11 +78,23 @@ body {
   content: "";
   display: block;
   height: 100%;
-  width: var(--bar);
+  width: 0;
   background: linear-gradient(90deg, #a259f7 60%, #6a82fb 100%);
   border-radius: 6px;
   position: absolute;
   left: 0; top: 0;
+}
+/* Animated fill when in view */
+.bar.animate.bar-blue::before,
+.bar.animate.bar-green::before,
+.bar.animate.bar-purple::before {
+  width: var(--bar);
+  transition: width 1.2s cubic-bezier(.65,.05,.36,1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .bar.animate.bar-blue::before,
+  .bar.animate.bar-green::before,
+  .bar.animate.bar-purple::before { transition: none; width: var(--bar); }
 }
   background: #181c23;
   color: #e6e6e6;
@@ -172,6 +184,9 @@ section {
 }
 .hero-content {
   z-index: 2;
+  opacity: 0;
+  transform: translateY(24px);
+  animation: heroEnter 1s ease forwards .15s;
 }
 .hero-title {
   font-size: 3.5rem;
@@ -250,6 +265,12 @@ section {
   0% { opacity: 0.5; transform: translateY(0); }
   100% { opacity: 1; transform: translateY(12px); }
 }
+@keyframes heroEnter {
+  to { opacity:1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-content { animation: none; opacity:1; transform:none; }
+}
 h1, h2 {
   margin-bottom: 1rem;
   color: #00bcd4;
@@ -278,6 +299,10 @@ h1, h2 {
   box-shadow: 0 6px 32px #00bcd4, 0 2px 12px #e040fb33;
   background: rgba(24,28,35,0.97);
 }
+/* Scroll reveal utility */
+.reveal { opacity:0; transform: translateY(28px) scale(.97); transition: opacity .6s ease, transform .9s cubic-bezier(.16,.84,.24,1); }
+.reveal.in { opacity:1; transform:none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity:1; transform:none; } }
 .card-img {
   width: 48px;
   height: 48px;
@@ -362,6 +387,16 @@ h1, h2 {
 #contact-form button:hover {
   background: #0097a7;
 }
+/* Form status messages */
+.form-status {
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  min-height: 1em;
+  font-weight: 500;
+}
+.form-status.sending { color: #00bcd4; }
+.form-status.success { color: #43e97b; }
+.form-status.error { color: #ff6b6b; }
 footer {
   text-align: center;
   padding: 2rem 0 1rem 0;
