@@ -84,6 +84,23 @@ if (observer) {
   });
 }
 
+// Interactive hero glow tracking
+const heroTitle = document.querySelector('.hero-title');
+if (heroTitle) {
+  const updateGlow = (x, y) => {
+    const rect = heroTitle.getBoundingClientRect();
+    const gx = ((x - rect.left) / rect.width) * 100;
+    const gy = ((y - rect.top) / rect.height) * 100;
+    heroTitle.style.setProperty('--glow-x', gx + '%');
+    heroTitle.style.setProperty('--glow-y', gy + '%');
+  };
+  heroTitle.addEventListener('pointermove', e => updateGlow(e.clientX, e.clientY));
+  heroTitle.addEventListener('pointerleave', () => {
+    heroTitle.style.setProperty('--glow-x', '50%');
+    heroTitle.style.setProperty('--glow-y', '50%');
+  });
+}
+
 // Contact form (Formspree)
 const contactForm = document.getElementById("contact-form");
 const statusEl = document.getElementById("contact-status");
